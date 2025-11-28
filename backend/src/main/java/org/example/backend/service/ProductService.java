@@ -5,6 +5,7 @@ import org.example.backend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -14,15 +15,24 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
-        return productRepository.save(product);
+        String id = UUID.randomUUID().toString();
+        return productRepository.createProduct(product.withId(id));
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.getAllProducts();
     }
 
     public Product getProductById(String id) {
-        return productRepository.findById(id)
-                .orElseThrow(()-> IllegalArgumentException(" product not found :"+id));
+        return productRepository.getProductById(id);
     }
+
+    public Product updateProduct(Product product) {
+        return productRepository.update(product);
+    }
+
+    public void deleteProduct(String id) {
+        productRepository.deleteProduct(id);
+    }
+
 }

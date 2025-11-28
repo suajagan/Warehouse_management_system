@@ -2,9 +2,10 @@ package org.example.backend.controller;
 
 import org.example.backend.model.Product;
 import org.example.backend.repository.ProductRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.backend.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -12,14 +13,36 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductRepository productRepository;
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    private final ProductService productService;
+
+    public  ProductController(ProductService productService) {
+        this.productService = productService;
     }
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAllProducts(){
+        return productService.getAllProducts();
     }
 
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable String id){
+        return productService.getProductById(id);
+    }
 
+    @PostMapping
+    public Product createProduct(@RequestBody Product product){
+        return productService.createProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product){
+        if (!id.equals(product.id())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return productService.updateProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable String id){
+        productService.deleteProduct(id);
+    }
 }

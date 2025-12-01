@@ -1,28 +1,26 @@
 import {useState} from "react";
-import axios from "axios";
+
+import type {Product} from "./Product";
+import ProductList from "./ProductList";
+import AddProductForm from "./AddProductForm";
+import ProductDetails from "./ProductDetails.tsx";
 
 export default function App(){
-    const [userName, setUserName] = useState<string>("")
-
-    function login(){
-        const host:string = window.location.host ==="localhost:5173" ? "http://localhost:8080" : window.location.origin
-
-        window.open(host + "/oauth2/authorization/github", "_self")
-    }
-
-    function getMe(){
-       axios.get("/api/users")
-           .then(r => setUserName(r.data))
-           .catch(e => console.log(e.message))
-    }
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     return(
-        <>
-        <h1>Login Page</h1>
-            <h2>{userName}</h2>
-            <button onClick={login}>Login</button>
-            <button onClick={getMe}>getMe!</button>
-        </>);
+        <div className="container">
+            <h1>Warehouse Management System</h1>
+
+            <div className="layout">
+                <ProductList onSelect={(p) => setSelectedProduct(p)} />
+                <ProductDetails product={selectedProduct} />
+                <AddProductForm/>
+
+            </div>
+
+        </div>
+    )
 }
 
 

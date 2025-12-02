@@ -1,6 +1,5 @@
 import axiosClient from "./axiosClient";
 import type { Product } from "./Product.ts";
-
 export const productApi = {
 
     getAll: async () => {
@@ -20,5 +19,11 @@ export const productApi = {
 
     delete: async (id: string) => {
         await axiosClient.delete(`/api/products/${id}`);
+    },
+
+    update: async (id: string, product: Product) => {
+        const result = await axiosClient.put(`/api/products/${id}`, product);
+        return result.data;
     }
 };
+

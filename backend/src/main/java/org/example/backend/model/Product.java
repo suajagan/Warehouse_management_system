@@ -1,8 +1,8 @@
 package org.example.backend.model;
 
-import org.springframework.data.annotation.Id;
 
-public record Product(@Id
+
+public record Product(
                       String id,
                       String name,
                       String description,

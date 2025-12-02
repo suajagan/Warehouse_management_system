@@ -1,7 +1,7 @@
 import  axios from "axios";
 
 const axiosClient=axios.create({
-    baseURL:"http://localhost:8080/api/products",
+    baseURL:"https://warehouse-management-system-pxu4.onrender.com",
     headers:{
         "content-type": "application/json"
     },

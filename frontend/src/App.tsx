@@ -1,8 +1,8 @@
 import {useState} from "react";
 
-import type {Product} from "./Product";
-import ProductList from "./ProductList";
-import AddProductForm from "./AddProductForm";
+import type {Product} from "./Product.ts";
+import ProductList from "./ProductList.tsx";
+import AddProductForm from "./AddProductForm.tsx";
 import ProductDetails from "./ProductDetails.tsx";
 
 export default function App(){

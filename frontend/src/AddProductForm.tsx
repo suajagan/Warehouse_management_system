@@ -11,14 +11,28 @@ export default function AddProductForm(){
     });
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setForm({...form, [e.target.name]: e.target.value});
+        const { name, value } = e.target;
+
+        setForm({
+            ...form,
+            [name]: name === "price" || name === "quantity"
+                ? Number(value)
+                : value
+        });
     }
+
 
     async function handleSubmit(e: React.FormEvent){
         e.preventDefault();
-        await productApi.create(form);
-        alert("Product Added");
-        window.location.reload();
+        try {
+            console.log("Sending:", form)
+            await productApi.create(form);
+            alert("Product Added");
+            window.location.reload();
+        }catch (err){
+            console.log(err);
+            alert("error adding product")
+        }
     }
 
     return(

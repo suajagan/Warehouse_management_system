@@ -1,22 +1,24 @@
-import axiosClient from "./axiosClient.ts";
-import type {Product} from "./Product.ts";
+import axiosClient from "./axiosClient";
+import type { Product } from "./Product.ts";
 
-export const productApi ={
-    getAll: async(): Promise<Product[]> =>{
-        const result = await axiosClient.get("/");
-        return result.data;
-    },
-    getById: async(id: string): Promise<Product> =>{
-        const result = await axiosClient.get(`/${id}`);
-       return  result.data;
-    },
+export const productApi = {
 
-    create: async(product: Omit<Product, "id">): Promise<Product> =>{
-        const result= await axiosClient.post("/", product);
+    getAll: async () => {
+        const result = await axiosClient.get("/api/products");
         return result.data;
     },
 
-    delete: async(id:string): Promise<void>=> {
-        await axiosClient.delete(`/${id}`);
+    getById: async (id: string) => {
+        const result = await axiosClient.get(`/api/products/${id}`);
+        return result.data;
     },
+
+    create: async (product: Omit<Product, "id">) => {
+        const result = await axiosClient.post("/api/products", product);
+        return result.data;
+    },
+
+    delete: async (id: string) => {
+        await axiosClient.delete(`/api/products/${id}`);
+    }
 };

@@ -10,17 +10,17 @@ public class CorsConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+
+        // ⬇️ ADD THIS LINE HERE
+        System.out.println("🔥🔥 CORS CONFIG LOADED !!! 🔥🔥");
+
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                "http://localhost:5173",
-                                "https://warehouse-management-system-pxu4.onrender.com"
-                        )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowedOrigins("http://localhost:5173")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*");
             }
         };
     }

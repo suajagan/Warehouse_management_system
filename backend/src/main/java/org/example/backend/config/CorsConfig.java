@@ -11,9 +11,6 @@ public class CorsConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
 
-        // ⬇️ ADD THIS LINE HERE
-        System.out.println("🔥🔥 CORS CONFIG LOADED !!! 🔥🔥");
-
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

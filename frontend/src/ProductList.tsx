@@ -17,7 +17,8 @@ export default function ProductList({ onSelect }: Props) {
     const filteredProducts = products.filter((p) =>
         p.name.toLowerCase().includes(search.toLowerCase()) ||
         p.description.toLowerCase().includes(search.toLowerCase()) ||
-        String(p.price).includes(search) ||
+        p.category.toLowerCase().includes(search.toLowerCase()) ||
+    String(p.price).includes(search) ||
         String(p.quantity).includes(search)
     );
 
@@ -41,7 +42,7 @@ export default function ProductList({ onSelect }: Props) {
                         onClick={() => onSelect(p)}
                         className="list-item"
                     >
-                        {p.name} - {p.quantity} pcs - €{p.price}
+                        {p.name} - {p.quantity} pcs - €{p.price} - [{p.category}]
                     </li>
                 ))}
             </ul>

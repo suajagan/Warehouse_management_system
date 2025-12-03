@@ -12,7 +12,6 @@ export default function ProductDetails({ product }: Props) {
 
     const [editData, setEditData] = useState<Product | null>(product);
 
-    // update edit fields when user selects a new product
     if (product && editData?.id !== product.id) {
         setEditData(product);
     }
@@ -33,7 +32,7 @@ export default function ProductDetails({ product }: Props) {
         window.location.reload();
     }
 
-    if (!product) return <div className="card">Select a Product</div>;
+    if (!product) return <div className="card placeholder">Select a Product</div>;
 
     return (
         <div className="card">
@@ -43,6 +42,7 @@ export default function ProductDetails({ product }: Props) {
                 <>
                     <p><strong>Name:</strong> {product.name}</p>
                     <p><strong>Description:</strong> {product.description}</p>
+                    <p><strong>Category:</strong> {product.category}</p>
                     <p><strong>Price:</strong> €{product.price}</p>
                     <p><strong>Quantity:</strong> {product.quantity}</p>
 
@@ -58,6 +58,7 @@ export default function ProductDetails({ product }: Props) {
 
             {editing && editData && (
                 <div className="edit-form">
+
                     <input
                         value={editData.name}
                         onChange={(e) => setEditData({ ...editData, name: e.target.value })}
@@ -73,20 +74,33 @@ export default function ProductDetails({ product }: Props) {
                     <input
                         value={editData.price}
                         type="number"
-                        onChange={(e) =>
-                            setEditData({ ...editData, price: Number(e.target.value) })
-                        }
+                        onChange={(e) => setEditData({ ...editData, price: Number(e.target.value) })}
                         placeholder="Price"
                     />
 
                     <input
                         value={editData.quantity}
                         type="number"
-                        onChange={(e) =>
-                            setEditData({ ...editData, quantity: Number(e.target.value) })
-                        }
+                        onChange={(e) => setEditData({ ...editData, quantity: Number(e.target.value) })}
                         placeholder="Quantity"
                     />
+
+                    <select
+                        value={editData.category}
+                        onChange={(e) => setEditData({ ...editData, category: e.target.value })}
+                    >
+                        <option value="">Select a Category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Food">Food</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Tools">Tools</option>
+                        <option value="Books">Books</option>
+                        <option value="Stationery">Stationery</option>
+                        <option value="Cosmetics">Cosmetics</option>
+                        <option value="Sports">Sports</option>
+                    </select>
 
                     <button onClick={handleSave} className="save">
                         Save

@@ -10,29 +10,30 @@ import java.util.UUID;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     public Product createProduct(Product product) {
         String id = UUID.randomUUID().toString();
-        return productRepository.createProduct(product.withId(id));
+        return productRepository.save(product.withId(id));
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.getAllProducts();
+        return productRepository.findAll();
     }
 
     public Product getProductById(String id) {
-        return productRepository.getProductById(id);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
     public Product updateProduct(Product product) {
-        return productRepository.update(product);
+        return productRepository.save(product);
     }
 
     public void deleteProduct(String id) {
-        productRepository.deleteProduct(id);
+        productRepository.deleteById(id);
     }
-
 }
